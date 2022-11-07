@@ -51,7 +51,7 @@ const Footer = () => {
             className="flex-col items-center hover:text-orange-500"
           >
             {item.icon}
-            <Typography sx={{ fontWeight: "bold" }} variant="h6">
+            <Typography sx={{ fontWeight: "bold" }} variant="body2">
               {item.title}
             </Typography>
           </IconButton>

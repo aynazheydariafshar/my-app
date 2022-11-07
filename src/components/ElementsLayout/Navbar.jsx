@@ -23,7 +23,7 @@ export default function Navbar() {
             <Home />
           </IconButton>
           <Box>
-            <Typography variant="h5" component="div" sx={{fontWeight  :"bold"}}>
+            <Typography variant="h6" component="div" sx={{fontWeight  :"bold"}}>
               ثبت سفارش
             </Typography>
           </Box>

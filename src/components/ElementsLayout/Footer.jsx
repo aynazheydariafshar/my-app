@@ -2,35 +2,45 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
-import QueryBuilderOutlinedIcon from '@mui/icons-material/QueryBuilderOutlined';
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
+import QueryBuilderOutlinedIcon from "@mui/icons-material/QueryBuilderOutlined";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import { Typography } from "@mui/material";
-
-const elementsFooter = [
-  {
-    icon: <TextsmsOutlinedIcon />,
-    title: "پیام ها",
-    onclick: () => {},
-  },
-  {
-    icon: <QueryBuilderOutlinedIcon />,
-    title: "فعالیت های اخیر",
-    onclick: () => {},
-  },
-  {
-    icon: <ArticleOutlinedIcon />,
-    title: "سفارش ها",
-    onclick: () => {},
-  },
-  {
-    icon: <AccountCircleOutlinedIcon />,
-    title: "پروفایل",
-    onclick: () => {},
-  },
-];
+import * as React from "react";
+import { useNavigate } from "react-router";
+import { PROFILE } from "constant";
 
 const Footer = () => {
+  const [value, setValue] = React.useState(2);
+  const navigate = useNavigate();
+  const elementsFooter = [
+    {
+      icon: <TextsmsOutlinedIcon />,
+      title: "پیام ها",
+      onclick: () => {},
+    },
+    {
+      icon: <QueryBuilderOutlinedIcon />,
+      title: "فعالیت های اخیر",
+      onclick: () => {},
+    },
+    {
+      icon: <ArticleOutlinedIcon />,
+      title: "سفارش ها",
+      onclick: () => {
+        navigate(`/`);
+        setValue(2);
+      },
+    },
+    {
+      icon: <AccountCircleOutlinedIcon />,
+      title: "پروفایل",
+      onclick: () => {
+        navigate(`/${PROFILE}`);
+        setValue(3);
+      },
+    },
+  ];
   return (
     <AppBar
       position="fixed"
@@ -44,10 +54,10 @@ const Footer = () => {
       }}
     >
       <Toolbar className="flex justify-around items-center">
-        {elementsFooter.map((item) => (
+        {elementsFooter.map((item, index) => (
           <IconButton
-            onClick={item.onClick}
-            color="inherit"
+            onClick={item.onclick}
+            sx={{ color: value === index ? "orange" : "inherit" }}
             className="flex-col items-center hover:text-orange-500"
           >
             {item.icon}

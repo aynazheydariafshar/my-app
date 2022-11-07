@@ -1,4 +1,5 @@
 import { Grid } from "@mui/material";
+import Footer from "components/ElementsLayout/Footer";
 
 import Navbar from "components/ElementsLayout/Navbar";
 
@@ -7,13 +8,11 @@ const LayoutStructer =
   (...props) => {
     return (
       <Grid className="flex-col justify-between">
-        <Grid>
           <Navbar />
-        </Grid>
         <Grid>
           <Component>{props}</Component>
         </Grid>
-        <Grid></Grid>
+        <Footer />
       </Grid>
     );
   };

@@ -7,7 +7,7 @@ const Layout = ({ title, children }) => {
   return (
     <Grid className="flex-col justify-between">
       <Navbar title={title} />
-      <Grid>{children}</Grid>
+      <Grid className="flex justify-center items-center">{children}</Grid>
       <Footer />
     </Grid>
   );

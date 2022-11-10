@@ -13,6 +13,7 @@ import { PROFILE } from "constant";
 const Footer = () => {
   const [value, setValue] = React.useState(2);
   const navigate = useNavigate();
+  
   const elementsFooter = [
     {
       icon: <TextsmsOutlinedIcon />,

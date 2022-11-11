@@ -1,47 +1,64 @@
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import QueryBuilderOutlinedIcon from "@mui/icons-material/QueryBuilderOutlined";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import { Typography } from "@mui/material";
+import {
+  Tab,
+  Tabs,
+} from "@mui/material";
 import * as React from "react";
-import { useNavigate } from "react-router";
-import { PROFILE } from "constant";
+import { useLocation, useNavigate } from "react-router";
+
+import { APP_ROUTE, PROFILE } from "constant";
 
 const Footer = () => {
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(APP_ROUTE);
   const navigate = useNavigate();
-  
+  const location = useLocation();
+
   const elementsFooter = [
     {
       icon: <TextsmsOutlinedIcon />,
       title: "پیام ها",
-      onclick: () => {},
+      value: "messages",
     },
     {
       icon: <QueryBuilderOutlinedIcon />,
       title: "فعالیت های اخیر",
-      onclick: () => {},
+      value: "actions",
     },
     {
       icon: <ArticleOutlinedIcon />,
       title: "سفارش ها",
-      onclick: () => {
-        navigate(`/`);
-        setValue(2);
-      },
+      value: APP_ROUTE,
     },
     {
       icon: <AccountCircleOutlinedIcon />,
       title: "پروفایل",
-      onclick: () => {
-        navigate(`/${PROFILE}`);
-        setValue(3);
-      },
+      value: PROFILE,
     },
   ];
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    navigate(`${newValue}`);
+  };
+
+  //when toggle link change Tab
+  React.useEffect(() => {
+    return location.pathname === `${APP_ROUTE}`
+      ? setValue(APP_ROUTE)
+      : setValue(PROFILE);
+  }, [location]);
+
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
+    };
+  }
+
   return (
     <AppBar
       position="fixed"
@@ -54,20 +71,30 @@ const Footer = () => {
         bottom: 0,
       }}
     >
-      <Toolbar className="flex justify-around items-center">
+      <Tabs
+        sx={{
+          backgroundColor: "inherit",
+          borderTopLeftRadius: "40px",
+          borderTopRightRadius: "40px",
+        }}
+        value={value}
+        onChange={handleChange}
+        TabIndicatorProps={{
+          style: {
+            display: "none",
+          },
+        }}
+      >
         {elementsFooter.map((item, index) => (
-          <IconButton
-            onClick={item.onclick}
-            sx={{ color: value === index ? "orange" : "inherit" }}
-            className="flex-col items-center hover:text-orange-500"
-          >
-            {item.icon}
-            <Typography sx={{ fontWeight: "bold" }} variant="body2">
-              {item.title}
-            </Typography>
-          </IconButton>
+          <Tab
+            className={`text-base font-bold rounded w-1/2`}
+            {...a11yProps(index)}
+            value={item.value}
+            label={item.title}
+            icon={item.icon}
+          />
         ))}
-      </Toolbar>
+      </Tabs>
     </AppBar>
   );
 };

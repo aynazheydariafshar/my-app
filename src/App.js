@@ -2,7 +2,7 @@ import RoutesMap from "routes";
 
 function App() {
   return (
-    <div style={{direction : "rtl"}}>
+    <div>
       <RoutesMap />
     </div>
   );

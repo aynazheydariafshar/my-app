@@ -15,3 +15,7 @@
     box-sizing: border-box;
     font-family: "iranSans" !important;
   }
+
+  ::placeholder {
+    color: rgb(108, 107, 107) !important;
+  }

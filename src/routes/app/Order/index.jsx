@@ -3,6 +3,7 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import {
   Box,
   Button,
+  CircularProgress,
   InputAdornment,
   TextareaAutosize,
   TextField,
@@ -11,10 +12,17 @@ import "react-multi-date-picker/styles/layouts/prime.css";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import React from "react";
+import axios from "axios";
 
 import Layout from "components/ElementsLayout/Layout";
+import { STATIC } from "constant";
 
 const Order = () => {
+  //check for api
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
   const elementsField = [
     {
       name: "product_type",
@@ -57,8 +65,38 @@ const Order = () => {
       type: "time",
     },
   ];
+
+  const postData = (values) => {
+    setError(null);
+    setLoading(false);
+    axios
+      .post(`${STATIC}/trader/orders`, {
+        product_type: values.product_type,
+        weight: values.weight,
+        vehicle_type: values.vehicle_type,
+        loading_location: values.loading_location,
+        unloading_loc: values.unloading_loc,
+        loading_date: values.loading_date,
+        border_passage: values.border_passage,
+        loading_hour: values.loading_hour,
+        description: values.description,
+      })
+      .then((response) => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError("دوباره تلاش کنید");
+      });
+  };
+
   return (
     <Layout title="ثبت سفارش">
+      {loading && (
+        <Box className="flex justify-center items-center">
+          <CircularProgress />
+        </Box>
+      )}
       <Formik
         // validationSchema={Yup.object({
         //   date: date_validate,
@@ -71,10 +109,13 @@ const Order = () => {
           loading_location: "",
           loading_date: "",
           border_passage: "",
+          loading_hour: "",
+          description: "",
         }}
         onSubmit={(values, actions) => {
-          //   actions.setSubmitting(true);
-          //   console.log(values);
+          postData(values);
+          alert(JSON.stringify(values));
+          console.log("f");
         }}
       >
         {({ values, setFieldValue }) => (
@@ -132,6 +173,7 @@ const Order = () => {
             })}
             <TextareaAutosize
               minRows={2}
+              name="description"
               className="p-2 border border-[#858688] w-full rounded-[20px]"
               placeholder="توضیحات"
               style={{
@@ -140,7 +182,9 @@ const Order = () => {
               }}
             />
             <Box className="flex justify-center items-center">
-              <Button className="w-[100px]" type="submit">تایید</Button>
+              <Button className="w-[100px]" type="submit">
+                تایید
+              </Button>
             </Box>
           </Form>
         )}

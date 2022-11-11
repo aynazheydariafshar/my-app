@@ -19,7 +19,7 @@ export default function Navbar({title}) {
         sx={{ backgroundColor: "rgb(214, 220, 227)", color: "black" , borderBottomLeftRadius : "40px" , borderBottomRightRadius : "40px"}}
       >
         <Toolbar className="justify-between items-center">
-          <IconButton className="hover:text-blue-500" size="large" color="inherit">
+          <IconButton onClick={() => navigate("/")} className="hover:text-blue-500" size="large" color="inherit">
             <Home />
           </IconButton>
           <Box>

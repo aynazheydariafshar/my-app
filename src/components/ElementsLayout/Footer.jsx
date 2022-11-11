@@ -3,7 +3,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import QueryBuilderOutlinedIcon from "@mui/icons-material/QueryBuilderOutlined";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import { BottomNavigation, BottomNavigationAction, Box, Tab, Tabs } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction} from "@mui/material";
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router";
 
@@ -48,13 +48,6 @@ const Footer = () => {
       ? setValue(APP_ROUTE)
       : setValue(PROFILE);
   }, [location]);
-
-  function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
-    };
-  }
 
   return (
     <AppBar

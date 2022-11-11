@@ -6,7 +6,6 @@ import {
   CircularProgress,
   InputAdornment,
   TextareaAutosize,
-  TextField,
 } from "@mui/material";
 import "react-multi-date-picker/styles/layouts/prime.css";
 import DatePicker, { DateObject } from "react-multi-date-picker";
@@ -17,7 +16,7 @@ import axios from "axios";
 import * as Yup from "yup";
 
 import Layout from "components/ElementsLayout/Layout";
-import { STATIC } from "constant";
+import { elementsField, STATIC } from "constant";
 import MyInput from "components/FormikElements/MyInput";
 
 const Order = () => {
@@ -25,48 +24,6 @@ const Order = () => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const checkField = Yup.string().required("این فیلد الزامی است").trim();
-  const elementsField = [
-    {
-      name: "product_type",
-      title: "نوع کالا",
-      type: "text",
-    },
-    {
-      name: "weight",
-      title: "وزن",
-      type: "number",
-    },
-    {
-      name: "vehicle_type",
-      title: "نوع ناوگان",
-      type: "text",
-    },
-    {
-      name: "loading_location",
-      title: "محل بارگیری",
-      type: "text",
-    },
-    {
-      name: "unloading_loc",
-      title: "محل تخلیه",
-      type: "text",
-    },
-    {
-      name: "loading_date",
-      title: "تاریخ بارگیری",
-      type: "date",
-    },
-    {
-      name: "border_passage",
-      title: "نام اعلام کننده بار",
-      type: "text",
-    },
-    {
-      name: "loading_hour",
-      title: "",
-      type: "time",
-    },
-  ];
 
   const postData = (values) => {
     setError(null);
@@ -106,7 +63,6 @@ const Order = () => {
           vehicle_type: checkField,
           loading_location: checkField,
           unloading_loc : checkField,
-          loading_date: checkField,
           border_passage: checkField,
           loading_hour: checkField,
         })}
@@ -115,7 +71,7 @@ const Order = () => {
           weight: 0,
           vehicle_type: "",
           loading_location: "",
-          loading_date: "",
+          loading_date: new DateObject({ calendar: persian }),
           unloading_loc : "",
           border_passage: "",
           loading_hour: "",
@@ -124,7 +80,6 @@ const Order = () => {
         onSubmit={(values, actions) => {
           postData(values);
           alert(JSON.stringify(values));
-          console.log("f");
         }}
       >
         {({ values, touched, errors, setFieldValue }) => (

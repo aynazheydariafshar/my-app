@@ -1,6 +1,12 @@
 import { Form, Formik } from "formik";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import { InputAdornment, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  InputAdornment,
+  TextareaAutosize,
+  TextField,
+} from "@mui/material";
 import "react-multi-date-picker/styles/layouts/prime.css";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
@@ -124,6 +130,18 @@ const Order = () => {
                 );
               }
             })}
+            <TextareaAutosize
+              minRows={2}
+              className="p-2 border border-[#858688] w-full rounded-[20px]"
+              placeholder="توضیحات"
+              style={{
+                backgroundColor: "rgb(214, 220, 227)",
+                margin: "10px 0",
+              }}
+            />
+            <Box className="flex justify-center items-center">
+              <Button className="w-[100px]" type="submit">تایید</Button>
+            </Box>
           </Form>
         )}
       </Formik>

@@ -14,15 +14,17 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import React from "react";
 import axios from "axios";
+import * as Yup from "yup";
 
 import Layout from "components/ElementsLayout/Layout";
 import { STATIC } from "constant";
+import MyInput from "components/FormikElements/MyInput";
 
 const Order = () => {
   //check for api
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-
+  const checkField = Yup.string().required("این فیلد الزامی است").trim();
   const elementsField = [
     {
       name: "product_type",
@@ -98,16 +100,23 @@ const Order = () => {
         </Box>
       )}
       <Formik
-        // validationSchema={Yup.object({
-        //   date: date_validate,
-        //   end_date: end_date_validate("date"),
-        // })}
+        validationSchema={Yup.object({
+          product_type: checkField,
+          weight: checkField,
+          vehicle_type: checkField,
+          loading_location: checkField,
+          unloading_loc : checkField,
+          loading_date: checkField,
+          border_passage: checkField,
+          loading_hour: checkField,
+        })}
         initialValues={{
           product_type: "",
           weight: 0,
           vehicle_type: "",
           loading_location: "",
           loading_date: "",
+          unloading_loc : "",
           border_passage: "",
           loading_hour: "",
           description: "",
@@ -118,7 +127,7 @@ const Order = () => {
           console.log("f");
         }}
       >
-        {({ values, setFieldValue }) => (
+        {({ values, touched, errors, setFieldValue }) => (
           <Form className="w-[30%] min-w-[300px]">
             {elementsField.map((item, index) => {
               if (index === 5) {
@@ -151,8 +160,7 @@ const Order = () => {
                 );
               } else {
                 return (
-                  <TextField
-                    fullWidth
+                  <MyInput
                     name={item.name}
                     label={item.title}
                     InputProps={{
@@ -161,8 +169,10 @@ const Order = () => {
                         backgroundColor: "rgb(214, 220, 227)",
                       },
                       endAdornment: (
-                        <InputAdornment position="end">
-                          {<NavigateBeforeIcon />}
+                        <InputAdornment
+                          position="end"
+                        >
+                          <NavigateBeforeIcon />
                         </InputAdornment>
                       ),
                     }}

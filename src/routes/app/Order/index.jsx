@@ -119,7 +119,7 @@ const Order = () => {
         }}
       >
         {({ values, setFieldValue }) => (
-          <Form className="w-[350px]">
+          <Form className="w-[30%] min-w-[300px]">
             {elementsField.map((item, index) => {
               if (index === 5) {
                 return (
@@ -181,7 +181,7 @@ const Order = () => {
                 margin: "10px 0",
               }}
             />
-            <Box className="flex justify-center items-center">
+            <Box className="flex justify-center items-center my-5">
               <Button className="w-[100px]" type="submit">
                 تایید
               </Button>
